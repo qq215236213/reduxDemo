@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 
 export default class Todo extends Component {
 	render() {
+		const {onClick,completed,text} = this.props;
 		return (
 			<li
-				onClick={this.props.onClick}
+				onClick={onClick}
 				style={{
-					textDecoration: this.props.completed ? 'line-through' : 'none',
-					cursor: this.props.completed ? 'default' : 'pointer'
+					textDecoration: completed ? 'line-through' : 'none',
+					cursor: completed ? 'default' : 'pointer'
 				}}>
-				{this.props.text}
+				{text}
 			</li>
 		);
 	}
