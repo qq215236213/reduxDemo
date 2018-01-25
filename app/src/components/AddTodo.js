@@ -13,8 +13,10 @@ export default class AddTodo extends Component {
 		);
 	}
 
-	handleClick(e) {
+	handleClick() {
 		const text = this.input.value.trim();
+		if(text === '')
+			return;
 		this.props.onAddClick(text);
 		this.input.value = '';
 	}
