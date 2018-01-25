@@ -2,16 +2,24 @@ import React , { Component } from 'react';
 import $ from 'jquery/dist/jquery.min';
 import md5 from 'md5';
 import {cookie} from '../common/cookie';
+import PropTypes from 'prop-types';
 import { Form, Icon, Input, Button, Checkbox,message } from 'antd';
+import {login} from '../../actions/login/actions';
 const FormItem = Form.Item;
 
 
 class Login extends Component {
-	constructor(props){
-	    super(props);
+	constructor(props,context){
+	    super(props,context);
         //this.handleSubmit = this.handleSubmit.bind(this);
+        this.click = this.click.bind(this);
     }
 
+	click(){
+		const {store} = this.context;
+		store.dispatch(login('123'));
+		console.log(store.getState())
+	}
 	/*handleSubmit(e) {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -33,7 +41,8 @@ class Login extends Component {
 		});
 	}*/
 	render() {
-		console.log(this.props)
+		const {store} = this.context;
+		console.log(store.getState())
 		const { getFieldDecorator } = this.props.form;
 		return (
 			<Form style={{maxWidth:'300px',margin:'100px auto'}}>
@@ -59,7 +68,7 @@ class Login extends Component {
 						<Checkbox>记住密码</Checkbox>
 					)}
 					<a style={{float:'right'}} href="">忘记密码</a>
-					<Button type="primary" htmlType="submit" style={{width:'100%'}}>
+					<Button type="primary" onClick={this.click} htmlType="button" style={{width:'100%'}}>
 						登录
 					</Button>
 					<a href="">立即注册</a>
@@ -67,6 +76,10 @@ class Login extends Component {
 			</Form>
 		);
 	}
+}
+
+Login.contextTypes = {
+	store : PropTypes.object
 }
 
 export default Form.create()(Login);
