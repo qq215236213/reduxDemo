@@ -1,32 +1,27 @@
 import React , { Component } from 'react';
-import $ from 'jquery/dist/jquery.min';
 import md5 from 'md5';
-import {cookie} from '../common/cookie';
 import PropTypes from 'prop-types';
-import { Form, Icon, Input, Button, Checkbox,message } from 'antd';
-import {login} from '../../actions/login/actions';
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import {getLoginData} from '../../actions/login/actions';
 const FormItem = Form.Item;
 
 
 class Login extends Component {
 	constructor(props,context){
 	    super(props,context);
-        //this.handleSubmit = this.handleSubmit.bind(this);
-        this.click = this.click.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-	click(){
-		const {store} = this.context;
-		store.dispatch(login('123'));
-		console.log(store.getState())
-	}
-	/*handleSubmit(e) {
+	handleSubmit(e) {
 		e.preventDefault();
+		const {store} = this.context;
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				const username = values.username;
 				const password = md5(values.password);
-				$.post('/managelogin',{username:username,pwd:password},function (d) {
+
+				store.dispatch(getLoginData(username,password));
+				/*$.post('/managelogin',{username:username,pwd:password},function (d) {
                     if(d.IsError){
                         message.error(d.Msg);
                         return;
@@ -36,16 +31,15 @@ class Login extends Component {
                     cookie('membername',d.Data.User.MemberName,{path:'/'});
                     cookie('issystemmanager',d.Data.User.IsSystemManager,{path:'/'});
                     window.location.hash = '#/';
-				});
+				});*/
 			}
 		});
-	}*/
+	}
 	render() {
-		const {store} = this.context;
-		console.log(store.getState())
+		console.log(this.context.store.getState())
 		const { getFieldDecorator } = this.props.form;
 		return (
-			<Form style={{maxWidth:'300px',margin:'100px auto'}}>
+			<Form onSubmit={this.handleSubmit} style={{maxWidth:'300px',margin:'100px auto'}}>
 				<FormItem>
 					{getFieldDecorator('username', {
 						rules: [{ required: true, message: '请输入用户名!' }],
@@ -68,7 +62,7 @@ class Login extends Component {
 						<Checkbox>记住密码</Checkbox>
 					)}
 					<a style={{float:'right'}} href="">忘记密码</a>
-					<Button type="primary" onClick={this.click} htmlType="button" style={{width:'100%'}}>
+					<Button type="primary" htmlType="submit" style={{width:'100%'}}>
 						登录
 					</Button>
 					<a href="">立即注册</a>

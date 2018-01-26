@@ -1,7 +1,7 @@
-export const reducer = (state={},action) =>{
+export const reducer = (state={}, action) =>{
 	switch (action.type){
 		case 'login':
-			return "haha";
+			return Object.assign({},state,action.data);
 		default:
 			return state;
 	}
