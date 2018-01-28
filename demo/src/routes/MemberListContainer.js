@@ -4,7 +4,7 @@ import {connect} from 'dva';
 
 class MemberListContainer extends Component{
   render(){
-    const {list,totalcount} = this.props;
+    const {list,totalcount,onPageChange} = this.props;
     const columns = [
       {
         title:'会员名',
@@ -44,7 +44,11 @@ class MemberListContainer extends Component{
     ];
     return (
       <div>
-        <MemberList datasource={list} totalcount={totalcount} columns={columns} />
+        <MemberList datasource={list}
+                    totalcount={totalcount}
+                    columns={columns}
+                    onPageChange={onPageChange}
+        />
       </div>
     );
   }
@@ -54,5 +58,14 @@ const mapStateToProps = (state) =>{
   return state.memberlist;
 }
 
+const mapDispatchToProps = (dispatch) =>{
+    return {
+      onPageChange:(pageindex,pagesize) => dispatch({
+        type:'memberlist/load',
+        payload:{pageindex,pagesize},
+      })
+    }
+}
 
-export default connect(mapStateToProps)(MemberListContainer);
+
+export default connect(mapStateToProps,mapDispatchToProps)(MemberListContainer);

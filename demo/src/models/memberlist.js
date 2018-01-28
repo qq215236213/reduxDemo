@@ -9,7 +9,7 @@ export default {
       return {...state,list:data.Data.Collection||[],
         totalcount:data.Data.TotalCount
       };
-    }
+    },
   },
   effects:{
     *load({payload},{call,put,select}){
@@ -21,7 +21,6 @@ export default {
       }
       payload.accesstoken = state.data.Data.Token;
       const data = yield call(getMemberList,payload);
-      console.log(data)
       yield put({
         type:'save',
         payload:data
