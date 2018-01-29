@@ -4,13 +4,24 @@ export const loadDataAction = (params) =>{
         const promise = loadData(params);
         promise.then(res =>{
             dispatch(saveSearchTxt(params.searchtxt));
-            dispatch(saveSearchValue(params.searchvalue));
             dispatch(saveData(res));
         })
     }
 }
 
-export const saveData = (payload) =>{
+export const saveSearchValueAction = (searchvalue)=>{
+    return dispatch =>{
+        dispatch(saveSearchValue(searchvalue));
+    }
+}
+
+export const saveCreateTimeAction = (date,datestring) =>{
+    return dispatch =>{
+        dispatch(saveCreateTime(datestring));
+    }
+}
+
+const saveData = (payload) =>{
     return {
         type:'loaddata',
         payload,
@@ -18,16 +29,23 @@ export const saveData = (payload) =>{
 }
 
 
-export const saveSearchTxt =(payload) =>{
+const saveSearchTxt =(payload) =>{
     return {
         type:'savetxt',
         payload
     }
 }
 
-export const saveSearchValue = (payload) =>{
+const saveSearchValue = (payload) =>{
     return {
-        type:'sevevalue',
+        type:'savevalue',
+        payload
+    }
+}
+
+const saveCreateTime = (payload) =>{
+    return {
+        type:'savetime',
         payload
     }
 }
