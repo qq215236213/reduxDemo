@@ -3,6 +3,7 @@ import {withRouter,Route} from 'react-router-dom';
 import React,{ Component } from 'react';
 import PageLayout from './components/PageLayout';
 import MembersContainer from './containers/members/MembersContainer';
+import PlatFormContainer from './containers/platforms/PlatFormContainer';
 
 class Routers extends Component{
 	render(){
@@ -15,6 +16,7 @@ class Routers extends Component{
 					<PageLayout>
 						<div>
 							<Route path='/' exact component={MembersContainer}/>
+							<Route path='/platform' component={PlatFormContainer}/>
 						</div>
 					</PageLayout>
 				);

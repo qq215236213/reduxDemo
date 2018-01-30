@@ -75,6 +75,7 @@ class MembersContainer extends Component{
                     };
                     this.props.onLoad(params);
                 }}
+                            inputPlaceholder='输入关键字查询'
                             showDatePicker={true}
                             datePickerChange={(date,datestring) => this.props.onDataTimeChange(date,datestring)}
                             showSelect={true}
