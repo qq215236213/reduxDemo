@@ -4,6 +4,7 @@ import React,{ Component } from 'react';
 import PageLayout from './components/PageLayout';
 import MembersContainer from './containers/members/MembersContainer';
 import PlatFormContainer from './containers/platforms/PlatFormContainer';
+import ManagerListContainer from './containers/managers/ManagerListContainer';
 
 class Routers extends Component{
 	render(){
@@ -17,6 +18,7 @@ class Routers extends Component{
 						<div>
 							<Route path='/' exact component={MembersContainer}/>
 							<Route path='/platform' component={PlatFormContainer}/>
+							<Route path='/manager' component={ManagerListContainer}/>
 						</div>
 					</PageLayout>
 				);
