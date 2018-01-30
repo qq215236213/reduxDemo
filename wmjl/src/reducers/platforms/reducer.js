@@ -36,12 +36,17 @@ export const platformReducer = (state = {
                 ...state,
                 isshow: action.payload.isshow,
                 isedit: action.payload.isedit,
-                dialogtitle: action.payload.dialogtitle
+                dialogtitle: action.payload.dialogtitle,
             };
         case 'platformdetail':
             return {
                 ...state,
                 detail: action.payload.Data
+            };
+        case 'platformisview':
+            return {
+                ...state,
+                isview: action.payload
             };
         default:
             return state;

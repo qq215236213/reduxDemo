@@ -3,11 +3,18 @@ import {connect} from 'react-redux';
 import TableDiv from '../../components/TableDiv';
 import SearchDiv from '../../components/SearchDiv';
 import ActionButtonDiv from '../../components/ActionButtonDiv';
-import {loadDataAction, deleteDataAction, showDialogAction,addDataAction,getSingleAction,updataDataAction} from '../../actions/platforms/actions';
+import {loadDataAction,
+        deleteDataAction,
+        showDialogAction,
+        addDataAction,
+        getSingleAction,
+        updataDataAction,
+        viewDetailAction} from '../../actions/platforms/actions';
 import {datefmt} from '../../libs/datefmt';
 import {tipMsg} from '../../libs/confirm';
 import Add from './Add';
 import Mod from './Mod';
+import Detial from './Detail';
 
 class PlatFormContainer extends Component {
     componentDidMount() {
@@ -55,7 +62,7 @@ class PlatFormContainer extends Component {
                 key: 'action',
                 width: '200px',
                 render: (record) => <span>
-                        <a >详情</a>
+                        <a onClick={()=>this.props.onView(record.RecId)}>详情</a>
                         <a style={{
                                 marginLeft: '15px'
                             }} onClick={()=>this.props.onSingle(record.RecId)}>修改</a>
@@ -65,12 +72,17 @@ class PlatFormContainer extends Component {
                     </span>
             }
         ];
-        const {totalcount, list, searchtxt, pageindex, pagesize,dialogtitle,isedit} = this.props;
+        const {totalcount, list, searchtxt, pageindex, pagesize,dialogtitle,isedit,isview} = this.props;
         const modalChildren = () =>{
             if(!isedit){
                 return <Add wrappedComponentRef={inst => this.formRef = inst}/>
             }else{
-                return <Mod wrappedComponentRef={inst => this.formRef = inst} data={this.props.detail}/>
+                if(isview){
+                    console.log(1111111)
+                    return <Detial wrappedComponentRef={inst => this.formRef = inst} data={this.props.detail}/>
+                }else{
+                    return <Mod wrappedComponentRef={inst => this.formRef = inst} data={this.props.detail}/>
+                }
             }
         }
         return (<div>
@@ -134,6 +146,7 @@ const mapDispatchToProps = (dispatch) => {
         onSave:(params) => dispatch(addDataAction(params)),
         onSingle:(id) => dispatch(getSingleAction(id)),
         onUpdata:(params)=>dispatch(updataDataAction(params)),
+        onView:(id) => dispatch(viewDetailAction(id)),
     }
 }
 

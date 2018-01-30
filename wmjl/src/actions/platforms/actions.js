@@ -43,6 +43,17 @@ export const getSingleAction = (id) =>{
     }
 }
 
+export const viewDetailAction = (id) =>{
+    return dispatch => {
+        const promise = getSingle(id);
+        promise.then(res =>{
+            dispatch(setIsViewDate(true));
+            dispatch(singleInfo(res));
+            dispatch(showDialogAction({isshow:true,dialogtitle:'详情'}));
+        })
+    }
+}
+
 export const updataDataAction = (params) =>{
     return dispatch =>{
         const promise = updataData(params);
@@ -72,6 +83,13 @@ const deleteInfo = (payload) => {
 const singleInfo = (payload) =>{
     return {
         type:'platformdetail',
+        payload
+    }
+}
+
+const setIsViewDate = (payload) =>{
+    return {
+        type:'platformisview',
         payload
     }
 }
