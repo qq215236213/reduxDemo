@@ -1,6 +1,6 @@
 export const platformReducer = (state = {
     isshow: false,
-    isedit: false
+    flag: 0  /**0表示新增，1表示修改 ，2表示详情*/
 }, action) => {
     switch (action.type) {
         case 'saveplatform':
@@ -35,7 +35,7 @@ export const platformReducer = (state = {
             return {
                 ...state,
                 isshow: action.payload.isshow,
-                isedit: action.payload.isedit,
+                flag: action.payload.flag,
                 dialogtitle: action.payload.dialogtitle,
             };
         case 'platformdetail':
@@ -46,7 +46,7 @@ export const platformReducer = (state = {
         case 'platformisview':
             return {
                 ...state,
-                isview: action.payload
+                flag: action.payload
             };
         default:
             return state;

@@ -72,24 +72,24 @@ class PlatFormContainer extends Component {
                     </span>
             }
         ];
-        const {totalcount, list, searchtxt, pageindex, pagesize,dialogtitle,isedit,isview} = this.props;
+        const {totalcount, list, searchtxt, pageindex, pagesize,dialogtitle,flag} = this.props;
         const modalChildren = () =>{
-            if(!isedit){
+            switch(flag){
+                case 0:
                 return <Add wrappedComponentRef={inst => this.formRef = inst}/>
-            }else{
-                if(isview){
-                    console.log(1111111)
-                    return <Detial wrappedComponentRef={inst => this.formRef = inst} data={this.props.detail}/>
-                }else{
-                    return <Mod wrappedComponentRef={inst => this.formRef = inst} data={this.props.detail}/>
-                }
+                case 1:
+                return <Mod wrappedComponentRef={inst => this.formRef = inst} data={this.props.detail}/>
+                case 2:
+                return <Detial wrappedComponentRef={inst => this.formRef = inst} data={this.props.detail}/>
+                default:
+                return <div></div>
             }
         }
         return (<div>
             <ActionButtonDiv modalChildren={modalChildren()}
-                            onAdd={() => this.props.onDialog({isshow:true,isedit:false,dialogtitle:'新增'})}
+                            onAdd={() => this.props.onDialog({isshow:true,flag:0,dialogtitle:'新增'})}
                             dialogIsShow={this.props.isshow}
-                            dialogCancelFunc={()=>this.props.onDialog({isshow:false,isedit:false})}
+                            dialogCancelFunc={()=>this.props.onDialog({isshow:false})}
                             showFooter={true}
                             dialogOkFunc={()=>this.saveAdd()}
                             dialogTitle={dialogtitle}

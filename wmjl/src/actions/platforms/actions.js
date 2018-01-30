@@ -38,7 +38,7 @@ export const getSingleAction = (id) =>{
         const promise = getSingle(id);
         promise.then(res =>{
             dispatch(singleInfo(res));
-            dispatch(showDialogAction({isshow:true,isedit:true,dialogtitle:'修改'}));
+            dispatch(showDialogAction({isshow:true,flag:1,dialogtitle:'修改'}));
         })
     }
 }
@@ -49,7 +49,7 @@ export const viewDetailAction = (id) =>{
         promise.then(res =>{
             dispatch(setIsViewDate(true));
             dispatch(singleInfo(res));
-            dispatch(showDialogAction({isshow:true,dialogtitle:'详情'}));
+            dispatch(showDialogAction({isshow:true,flag:2,dialogtitle:'详情'}));
         })
     }
 }
