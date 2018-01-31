@@ -130,7 +130,6 @@ class PlatFormContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
     return state.platform;
 }
 

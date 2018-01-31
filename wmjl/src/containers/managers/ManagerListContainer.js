@@ -8,7 +8,8 @@ import {loadDataAction,
     deleteDataAction,
     showDialogAction,
     saveDataAction,
-    getSingleAction} from '../../actions/managers/actions';
+    getSingleAction,
+    updateDataAction} from '../../actions/managers/actions';
 import {datefmt} from '../../libs/datefmt';
 import {tipMsg} from '../../libs/confirm';
 import Add from './Add';
@@ -26,7 +27,7 @@ class ManagerListContainer extends Component{
                 return ;
             }
             if(this.props.isedit){
-
+                this.props.onUpdata(values);
             }else{
                 this.props.onSave(values);
             }
@@ -150,7 +151,6 @@ class ManagerListContainer extends Component{
 }
 
 const mapStateToProps = (state) =>{
-    console.log(state);
     return state.managers;
 }
 
@@ -166,6 +166,7 @@ const mapDispatchToProps = (dispatch) =>{
         onDialog:(params)=>dispatch(showDialogAction(params)),
         onSave:(params) => dispatch(saveDataAction(params)),
         onSingle:(id) => dispatch(getSingleAction(id)),
+        onUpdata:(params) => dispatch(updateDataAction(params)),
     }
 }
 

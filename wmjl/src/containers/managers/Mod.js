@@ -23,7 +23,7 @@ class Mod extends Component{
         }
     }
 
-    editPwdChkChange(){
+    editPwdChkChange(e){
         const form = this.props.form;
         form.resetFields(['password','confirmpassword']);
         this.setState({disabled:!this.state.disabled,needvalidcheck:!this.state.needvalidcheck});
@@ -86,7 +86,11 @@ class Mod extends Component{
                 validator:this.checkPassword
             }*/]
         }
-        const checkbox = getFieldDecorator('editchk')(<Checkbox onChange={this.editPwdChkChange}>修改</Checkbox>);
+        const checkbox = getFieldDecorator('editchk',
+        {
+            initialValue:false,
+            valuePropName:'checked'
+        })(<Checkbox onChange={this.editPwdChkChange}>修改</Checkbox>);
         return (
             <Form>
                 <FormItem	{...formItemLayout}
@@ -156,6 +160,17 @@ class Mod extends Component{
                              label={'帐号状态'}
                 >
                     {curStatusSelector}
+                </FormItem>
+                <FormItem style={{display:'none'}}
+                          {...formItemLayout}
+                             label={'id'}
+                >
+                    {getFieldDecorator('id',{
+                        initialValue:data.Id
+                    })(
+                        <Input
+                        />
+                    )}
                 </FormItem>
             </Form>
         );

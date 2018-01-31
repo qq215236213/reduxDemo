@@ -1,4 +1,4 @@
-import {loadData,batchDeleteData,saveData,getSingle} from '../../services/managers/service';
+import {loadData,batchDeleteData,saveData,getSingle,updataData} from '../../services/managers/service';
 
 export const loadDataAction = (params) =>{
     return dispatch =>{
@@ -48,6 +48,16 @@ export const getSingleAction =(id) =>{
         promise.then(res =>{
             dispatch(saveDetail(res));
             dispatch(showDialog({isshow:true,isedit:true,dialogtitle:'修改'}));
+        })
+    }
+}
+
+export const updateDataAction = (params) =>{
+    return dispatch => {
+        const promise = updataData(params);
+        promise.then(res =>{
+            dispatch(showDialog({isshow:false}));
+            dispatch(loadDataAction());
         })
     }
 }

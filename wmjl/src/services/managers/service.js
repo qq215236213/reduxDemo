@@ -73,3 +73,33 @@ export const getSingle = (id) =>{
     });
     return promise;
 }
+
+export const updataData = (params) =>{
+    console.log(params)
+    let p = {};
+    p.id = params.id;
+    if(params.curstatus === "0"){
+        p.curstatus = 0;
+    }else{
+        p.curstatus = 1;
+    }
+    if(params.issystem ==='1'){
+        p.IsSystemManager = true;
+    }else{
+        p.IsSystemManager = false;
+    }
+    if(params.editchk){
+        p.loginpwd = md5(params.password);
+    }
+    const param = Object.assign({},p,{accesstoken:cookie('token')});
+    const promise = new Promise(resolve =>{
+        $.post('/manager/'+param.id,param , d =>{
+            if(d.IsError){
+                message.error(d.Msg);
+                return;
+            }
+            resolve(d);
+        });
+    });
+    return promise;
+}
