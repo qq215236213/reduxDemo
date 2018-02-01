@@ -1,11 +1,16 @@
-import request from '../../utils/request';
-import querystring from 'query-string';
+import $ from 'jquery/dist/jquery.min';
+import {hosturl} from '../hosturl';
+import {message} from 'antd';
 
-export function loginQuery(params) {
-    const options = {
-         method:'post',
-         headers: {'Content-Type':'application/x-www-form-urlencoded'},
-         body:querystring.stringify(params)
-    }
-  return request('http://localhost:8088/managelogin',options);
+export function loginQuery(params){
+    const promise = new Promise(resolve =>{
+        $.post(hosturl+'managelogin',params,d =>{
+            if(d.IsError){
+                message.error(d.Msg);
+                return ;
+            }
+            resolve(d);
+        })
+    })
+    return promise;
 }

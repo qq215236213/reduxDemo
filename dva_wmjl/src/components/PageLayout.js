@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-import cookie from '../libs/cookie';
+import {cookie} from '../libs/cookie';
 import { Layout,Menu,Icon,Dropdown } from 'antd';
 const { SubMenu } = Menu;
 const { Header,Content,Sider,Footer } = Layout;

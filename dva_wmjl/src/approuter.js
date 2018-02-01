@@ -1,6 +1,8 @@
 import React ,{Component} from 'react';
 import {withRouter,Route} from 'dva/router';
 import LoginContainer from './routes/login/LoginContainer';
+import PageLayout from './components/PageLayout';
+import MemberContainer from './routes/members/MemberContainer';
 
 class AppRouter extends Component {
     render(){
@@ -10,7 +12,9 @@ class AppRouter extends Component {
                 return <Route path='/login' component={LoginContainer}/>
             }else{
                 return (
-                    <div></div>
+                    <PageLayout>
+                        <Route path='/' component={MemberContainer}/>
+                    </PageLayout>
                 );
             }
         }

@@ -1,5 +1,4 @@
 import md5 from 'md5';
-import {message} from 'antd';
 import {cookie} from '../libs/cookie';
 import {loginQuery} from '../services/login/service';
 import {routerRedux} from 'dva/router';
@@ -13,11 +12,7 @@ export default {
   },
   effects: {
     *login({ payload }, { call, put }) {
-        const {data} = yield call(loginQuery,{username:payload.username,pwd:md5(payload.pwd)});
-        if(data.IsError){
-            message.error(data.Msg);
-            return;
-        }
+        const data = yield call(loginQuery,{username:payload.username,pwd:md5(payload.pwd)});
         yield put({ type: 'save' ,payload: data});
         yield put(routerRedux.push('/'));
     },
