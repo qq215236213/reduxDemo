@@ -2,26 +2,48 @@ import {loadData} from '../services/members/service';
 import {message} from 'antd';
 export default{
     namespace:'members',
-    state:{},
+    state:{
+        searchvalue:'membername',
+        isloading:false    
+    },
     reducers:{
         save(state,action){
-            console.log(action.payload)
             return {
-                ...state,...action.payload
+                ...state,
+                list:action.payload.Collection,
+                totalcount:action.payload.TotalCount,
+                pageindex:action.payload.PageIndex,
+                pagesize:action.payload.PageSize
             };
+        },
+        saveSearchTxt(state,action){
+            return {
+                ...state,searchtxt:action.payload
+            }
+        },
+        saveDateTime(state,action){
+            return {
+                ...state,
+                startdate:action.payload[0],
+                enddate:action.payload[1]
+            }
+        },
+        saveSearchValue(state,action){
+            return {
+                ...state,
+                searchvalue:action.payload
+            }
         }
     },
     effects:{
-        *loaddata({payload},{call,pull}){
-            const pa = {...payload};
-            console.log(pa)
-            const {data} = yield call(loadData,pa);
-            console.log(data)
-            if(data.IsError){
-                message.error(data.Msg);
+        *loaddata({payload},{call,put}){
+            yield put({type:'saveSearchTxt',payload:payload.searchtxt});
+            const data = yield call(loadData,payload);
+            if(data.Data.IsError){
+                message.error(data.Data.Msg);
                 return;
             }
-            yield pull({type:'save',payload:data});
+            yield put({type:'save',payload:data.Data});
         }
     },
     subscriptions:{
@@ -30,10 +52,7 @@ export default{
                 if(location.pathname === '/'){
                     dispatch({
                         type:'loaddata',
-                        payload:{
-                            pageindex:1,
-                            pagesize:10
-                        }
+                        payload:{}
                     })
                 }
             })

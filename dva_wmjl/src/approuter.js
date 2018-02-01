@@ -3,6 +3,7 @@ import {withRouter,Route} from 'dva/router';
 import LoginContainer from './routes/login/LoginContainer';
 import PageLayout from './components/PageLayout';
 import MemberContainer from './routes/members/MemberContainer';
+import PlatformContainer from './routes/platforms/PlatformContainer';
 
 class AppRouter extends Component {
     render(){
@@ -13,7 +14,10 @@ class AppRouter extends Component {
             }else{
                 return (
                     <PageLayout>
-                        <Route path='/' component={MemberContainer}/>
+                        <div>
+                            <Route path='/' exact component={MemberContainer}/>
+                            <Route path='/platform' component={PlatformContainer}/>
+                        </div>
                     </PageLayout>
                 );
             }

@@ -3,10 +3,8 @@ import {hosturl} from '../hosturl';
 import $ from 'jquery/dist/jquery.min';
 import {message} from 'antd';
 
-export const loadDate = (params) => {
-    console.log(params);
+export const loadData = (params) => {
     const p = {...params,accesstoken:cookie('token')};
-    console.log(p)
     const promise = new Promise( resolve => {
         $.get(hosturl+'member',p, d => {
                 if(d.IsError){
